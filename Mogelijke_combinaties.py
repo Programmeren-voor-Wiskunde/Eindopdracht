@@ -23,5 +23,3 @@ def possible_combinations(deck: list):
             combination.pop()
     print(possibilities)
     return possibilities
-
-possible_combinations(kaartendek)
