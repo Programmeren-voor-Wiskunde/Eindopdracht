@@ -1,24 +1,27 @@
 
 import copy
 
-def mogelijke_combinaties(kaartendek: list):
+def possible_combinations(deck: list):
     """
-    Deze functie geeft alle mogelijke combinaties van drie verschillende kaarten 
-    uit een verzameling van twaalf kaarten, waarbij de volgorde niet uitmaakt.
+    This function returns all the possible combinations of three different cards 
+    from a set of twelve cards, in which the order of the cards doesn't matter.
+    
+    input: list of the cards in the set of twelve cards
+    output: all possible combinations of three cards in this set of twelve cards.
 
     """
-    mogelijkheden = []
+    possibilities = []
     for i in range(12):
-        combinatie = [kaartendek[i]]
+        combination = [deck[i]]
         for j in range(i+1,12):
-            combinatie.append(kaartendek[j])
+            combination.append(deck[j])
             for k in range(j+1,12):
-                combinatie.append(kaartendek[k])
-                if combinatie not in mogelijkheden and len(combinatie)==3:
-                    mogelijkheden.append(copy.copy(combinatie))
-                    combinatie.pop()
-            combinatie.pop()
-    print(mogelijkheden)
-    return mogelijkheden
+                combination.append(deck[k])
+                if combination not in possibilities and len(combination)==3:
+                    possibilities.append(copy.copy(combination))
+                    combination.pop()
+            combination.pop()
+    print(possibilities)
+    return possibilities
 
-mogelijke_combinaties()
+possible_combinations(kaartendek)
