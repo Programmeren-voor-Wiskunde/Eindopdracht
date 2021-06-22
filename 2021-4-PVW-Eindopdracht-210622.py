@@ -38,25 +38,30 @@ class Kaart:
         return True
 
 
-def mogelijke_combinaties():
-    """
-    Deze functie geeft alle mogelijkheden om 3 kaarten uit een verzameling van 12 kaarten te trekken, 
-    waarbij de volgorde niet van belang is.
-    """
+#Not in Class definition anymore
 
-    mogelijkheden = []
-    for i in range(1,13):
-        combinatie = [i]
-        for j in range(i+1,13):
-            combinatie.append(j)
-            for k in range(j+1,13):
-                combinatie.append(k)
-                if combinatie not in mogelijkheden and len(combinatie)==3:
-                    mogelijkheden.append(copy.copy(combinatie))
-                    combinatie.pop()
-            combinatie.pop()
-    print(mogelijkheden)
-    return mogelijkheden
+def possible_combinations(deck: list):
+    """
+    This function returns all the possible combinations of three different cards 
+    from a set of twelve cards, in which the order of the cards doesn't matter.
+    
+    input: list of the cards in the set of twelve cards
+    output: all possible combinations of three cards in this set of twelve cards.
+
+    """
+    possibilities = []
+    for i in range(12):
+        combination = [deck[i]]
+        for j in range(i+1,12):
+            combination.append(deck[j])
+            for k in range(j+1,12):
+                combination.append(deck[k])
+                if combination not in possibilities and len(combination)==3:
+                    possibilities.append(copy.copy(combination))
+                    combination.pop()
+            combination.pop()
+    print(possibilities)
+    return possibilities
 
 def unit_tests():
     """Unit Tests: worden alleen geprint indien returnvalue onjuist is""" 
