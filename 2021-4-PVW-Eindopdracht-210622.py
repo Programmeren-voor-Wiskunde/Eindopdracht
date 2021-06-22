@@ -48,5 +48,26 @@ print("Unit test: "+str(kaart1)+","+str(kaart2)+","+str(kaart3)+" "+ "Expected: 
 kaart4=Kaart(1,1,2,1)
 kaart5=Kaart(0,2,2,3)
 kaart6=Kaart(0,1,1,3)
-
 print("Unit test: "+str(kaart4)+","+str(kaart5)+","+str(kaart6)+" "+ "Expected: False, return Falue:"+str(kaart4.is_set(kaart5,kaart6)))
+
+import copy
+
+def mogelijke_combinaties():
+    """
+    Deze functie geeft alle mogelijkheden om 3 kaarten uit een verzameling van 12 kaarten te trekken, 
+    waarbij de volgorde niet van belang is.
+    """
+
+    mogelijkheden = []
+    for i in range(1,13):
+        combinatie = [i]
+        for j in range(i+1,13):
+            combinatie.append(j)
+            for k in range(j+1,13):
+                combinatie.append(k)
+                if combinatie not in mogelijkheden and len(combinatie)==3:
+                    mogelijkheden.append(copy.copy(combinatie))
+                    combinatie.pop()
+            combinatie.pop()
+    print(mogelijkheden)
+    return mogelijkheden
