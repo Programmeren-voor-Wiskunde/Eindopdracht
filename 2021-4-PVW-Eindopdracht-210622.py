@@ -7,3 +7,5 @@ Created on Tue Jun 22 11:43:47 2021
 #Jelger, kun je dit nu zien?
 
 #Ja ik kan dit zien
+
+#Levi's studentnummer: 7017359
