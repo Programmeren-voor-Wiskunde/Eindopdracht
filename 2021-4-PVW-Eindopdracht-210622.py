@@ -41,7 +41,7 @@ class Kaart:
 
 #Not in Class definition anymore
 
-def possible_combinations(deck: list):
+def possible_combinations(set_of_twelve: list):
     """
     This function returns all the possible combinations of three different cards 
     from a set of twelve cards, in which the order of the cards doesn't matter.
@@ -52,16 +52,15 @@ def possible_combinations(deck: list):
     """
     possibilities = []
     for i in range(12):
-        combination = [deck[i]]
+        combination = [set_of_twelve[i]]
         for j in range(i+1,12):
-            combination.append(deck[j])
+            combination.append(set_of_twelve[j])
             for k in range(j+1,12):
-                combination.append(deck[k])
+                combination.append(set_of_twelve[k])
                 if combination not in possibilities and len(combination)==3:
                     possibilities.append(copy.copy(combination))
                     combination.pop()
             combination.pop()
-    print(possibilities)
     return possibilities
 
 def unit_tests():
