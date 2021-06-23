@@ -25,6 +25,7 @@ class Kaart:
         
     def __str__(self):
         return("("+str(self.color)+","+str(self.number)+","+str(self.filling)+","+str(self.shape)+","+")")
+        #Is de laatste komma die geprint wordt nodig?
         
     def is_set(self,other1,other2):
         matchings={"color": False,"number": False, "filling": False, "shape": False}
