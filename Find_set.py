@@ -71,23 +71,3 @@ def find_set(set_of_twelve: list):
             return combination
         elif combination == Possible_combinations[-1] and card1.is_set(card2, card3)==False:
             return False
-
-a0 = Kaart(1,0,1,2)
-a1 = Kaart(1,2,0,2)
-a2 = Kaart(2,1,0,1)
-a3 = Kaart(2,1,2,2)
-a4 = Kaart(0,0,0,2)
-a5 = Kaart(0,2,0,1)
-a6 = Kaart(1,1,1,1)
-a7 = Kaart(2,2,0,2)
-a8 = Kaart(1,0,1,2)
-a9 = Kaart(1,0,0,2)
-a10 = Kaart(2,0,2,0)
-a11 = Kaart(2,0,2,1)
-Set_of_Twelve = [a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11]
-
-print(find_set(Set_of_Twelve)[0])
-print(find_set(Set_of_Twelve)[1])
-print(find_set(Set_of_Twelve)[2])
-
-print(len(possible_combinations(list(range(12)))))
