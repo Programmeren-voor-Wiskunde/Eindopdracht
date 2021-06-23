@@ -11,7 +11,7 @@ Functions, mogelijke_combinaties(), unit_tests():
 import copy
 
 class Kaart:
-    """Represents a cart of the game Set"
+    """Represents a card of the game Set"
     
     Attributes: color, number, filling, shape.
     Methods: init, str
