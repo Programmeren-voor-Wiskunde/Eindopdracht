@@ -70,15 +70,15 @@ class Game:
     def __str__(self):
         return("Cards on the table:\n"+str(self.set_of_twelve[0])+str(self.set_of_twelve[1])+str(self.set_of_twelve[2])+str(self.set_of_twelve[3])+"\n"+str(self.set_of_twelve[4])+str(self.set_of_twelve[5])+str(self.set_of_twelve[6])+str(self.set_of_twelve[7])+"\n"+str(self.set_of_twelve[8])+str(self.set_of_twelve[9])+str(self.set_of_twelve[10])+str(self.set_of_twelve[11])+"\n"+"Aantal kaarten op de stapel:"+str(len(self.deck)))
         
-    def update_set_of_twelve(self,indices):
+    def update_set_of_twelve(self, set_indices):
         """
-        Updates the cards at the table if necessary and thereby remove this cards from the deck
+        Updates the cards at the table and removes the cards with the given set_indices from the deck.
         
-        Input: game, indices: list of cards in the set_of_twelve which has to be renewed.
+        Input: game, set_indices: list of cards in the set_of_twelve which have to be renewed.
         Output: none
         Changed attributes: self.deck, self.set_of_twelve
         """
-        for i in indices:
+        for i in set_indices:
             self.set_of_twelve[i]=self.deck[-1]
             del self.deck[-1]
             
