@@ -138,11 +138,7 @@ def find_set(set_of_twelve: list):
     if find_allsets(set_of_twelve)==[]:
         return False
     else:
-        return find_allsets(set_of_twelve)
-    
-game=Game()
-print(game)
-    
+        return find_allsets(set_of_twelve) 
 
 def unit_tests():
     """Unit Tests: worden alleen geprint indien returnvalue onjuist is""" 
