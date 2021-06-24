@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Jun 24 14:11:12 2021
+
+@author: Jelger
+"""
 import copy
 
 class Kaart:
@@ -52,6 +58,25 @@ def possible_combinations(set_of_twelve: list):
             combination.pop()
     return possibilities
 
+def find_allsets(set_of_twelve: list):
+    """
+    This function finds al Sets in ta set of twelve cards.
+    Input: list of twelve cards
+    Output: If there is at least one Set, this function returns a list of all Sets (list of lists with the indices 
+            of the cards that form a Set).
+            If there isn't any Set in this set of twelve cards, the function
+            returns False.   
+    """
+    allsets=[]
+    Possible_combinations = possible_combinations(set_of_twelve)
+    for combination in Possible_combinations:
+        card1 = combination[0]
+        card2 = combination[1]
+        card3 = combination[2]
+        if card1.is_set(card2, card3):
+            allsets.append(combination)
+    return allsets
+
 def find_set(set_of_twelve: list):
     """
     This function finds a Set in a set of twelve cards.
@@ -60,14 +85,12 @@ def find_set(set_of_twelve: list):
     Output: If there is a Set, this function returns a list with the indices 
             of the cards that form a Set.
             If there isn't any Set in this set of twelve cards, the function
-            return False.
+            returns False.
     """
-    Possible_combinations = possible_combinations(set_of_twelve)
-    for combination in Possible_combinations:
-        card1 = combination[0]
-        card2 = combination[1]
-        card3 = combination[2]
-        if card1.is_set(card2, card3):
-            return combination
-        elif combination == Possible_combinations[-1] and card1.is_set(card2, card3)==False:
-            return False
+    if find_allsets(set_of_twelve)==[]:
+        return False
+    else:
+        return find_allsets(set_of_twelve)
+    
+        
+        
