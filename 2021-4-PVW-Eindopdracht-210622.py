@@ -62,11 +62,10 @@ class Game:
                         self.deck.append(Card(i,j,k,l))
         random.shuffle(self.deck)
 
-        set_of_twelve = []
+        self.set_of_twelve = []
         for i in range(12):
-            set_of_twelve.append(str(self.deck[0]))
-            del self.deck[0]
-        self.set_of_twelve=set_of_twelve
+            self.set_of_twelve.append(str(self.deck[-1]))
+            del self.deck[-1]
         
     def __str__(self):
         return("Cards on the table:\n"+str(self.set_of_twelve[0])+str(self.set_of_twelve[1])+str(self.set_of_twelve[2])+str(self.set_of_twelve[3])+"\n"+str(self.set_of_twelve[4])+str(self.set_of_twelve[5])+str(self.set_of_twelve[6])+str(self.set_of_twelve[7])+"\n"+str(self.set_of_twelve[8])+str(self.set_of_twelve[9])+str(self.set_of_twelve[10])+str(self.set_of_twelve[11])+"\n"+"Aantal kaarten op de stapel:"+str(len(self.deck)))
@@ -80,8 +79,8 @@ class Game:
         Changed attributes: self.deck, self.set_of_twelve
         """
         for i in indices:
-            self.set_of_twelve[i]=self.deck[0]
-            del self.deck[0]
+            self.set_of_twelve[i]=self.deck[-1]
+            del self.deck[-1]
 #Not in Game definition anymore
 
 def possible_combinations(set_of_twelve: list):
