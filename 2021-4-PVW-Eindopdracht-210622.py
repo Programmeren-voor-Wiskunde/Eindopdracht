@@ -5,12 +5,12 @@ Created on Tue Jun 22 11:43:47 2021
 @author: Levi G.R. van Lieshout & Jelger J. van Haskera
 
 Classes: Kaart
-Functions, mogelijke_combinaties(), unit_tests(): 
+Functions: mogelijke_combinaties(), unit_tests(), find_allsets(set_of_twelve: list), find_set(set_of_twelve: list)
 """
 
 import copy
 
-class Kaart:
+class Card:
     """Represents a card of the game Set"
     
     Attributes: color, number, filling, shape.
@@ -24,8 +24,7 @@ class Kaart:
         self.shape=shape
         
     def __str__(self):
-        return("("+str(self.color)+","+str(self.number)+","+str(self.filling)+","+str(self.shape)+","+")")
-        #Is de laatste komma die geprint wordt nodig?
+        return("("+str(self.color)+","+str(self.number)+","+str(self.filling)+","+str(self.shape)+")")
         
     def is_set(self,other1,other2):
         matchings={"color": False,"number": False, "filling": False, "shape": False}
@@ -63,13 +62,48 @@ def possible_combinations(set_of_twelve: list):
             combination.pop()
     return possibilities
 
+def find_allsets(set_of_twelve: list):
+    """
+    This function finds al Sets in ta set of twelve cards.
+    Input: list of twelve cards
+    Output: If there is at least one Set, this function returns a list of all Sets (list of lists with the indices 
+            of the cards that form a Set).
+            If there isn't any Set in this set of twelve cards, the function
+            returns False.   
+    """
+    allsets=[]
+    Possible_combinations = possible_combinations(set_of_twelve)
+    for combination in Possible_combinations:
+        card1 = combination[0]
+        card2 = combination[1]
+        card3 = combination[2]
+        if card1.is_set(card2, card3):
+            allsets.append(combination)
+    return allsets
+
+def find_set(set_of_twelve: list):
+    """
+    This function finds a Set in a set of twelve cards.
+    
+    Input: list of twelve cards
+    Output: If there is a Set, this function returns a list with the indices 
+            of the cards that form a Set.
+            If there isn't any Set in this set of twelve cards, the function
+            returns False.
+    """
+    if find_allsets(set_of_twelve)==[]:
+        return False
+    else:
+        return find_allsets(set_of_twelve)
+    
+
 def unit_tests():
     """Unit Tests: worden alleen geprint indien returnvalue onjuist is""" 
     #is_set, expected: True 
-    kaart1, kaart2, kaart3=Kaart(0,1,2,1), Kaart(0,2,3,3), Kaart(0,3,1,4)
-    kaart4, kaart5, kaart6=Kaart(1,0,2,1), Kaart(2,0,3,3), Kaart(3,0,1,4)
-    kaart7, kaart8, kaart9=Kaart(1,2,0,1), Kaart(2,3,0,3), Kaart(3,1,0,4)
-    kaart10, kaart11, kaart12=Kaart(1,2,1,0), Kaart(2,3,3,0), Kaart(3,1,4,0)
+    kaart1, kaart2, kaart3=Card(0,1,2,1), Card(0,2,3,3), Card(0,3,1,4)
+    kaart4, kaart5, kaart6=Card(1,0,2,1), Card(2,0,3,3), Card(3,0,1,4)
+    kaart7, kaart8, kaart9=Card(1,2,0,1), Card(2,3,0,3), Card(3,1,0,4)
+    kaart10, kaart11, kaart12=Card(1,2,1,0), Card(2,3,3,0), Card(3,1,4,0)
     
     if kaart1.is_set(kaart2,kaart3)==False:
         print("Unit test 1: "+str(kaart1)+","+str(kaart2)+","+str(kaart3)+" "+ "Expected: True, return Falue:"+str(kaart1.is_set(kaart2,kaart3)))
@@ -81,9 +115,9 @@ def unit_tests():
         print("Unit test 4: "+str(kaart10)+","+str(kaart11)+","+str(kaart12)+" "+ "Expected: True, return Falue:"+str(kaart10.is_set(kaart11,kaart12)))      
     
     #is_set, expected: False 
-    kaart13, kaart14, kaart15=Kaart(1,1,2,1), Kaart(0,2,2,3), Kaart(0,1,1,3)
-    kaart16, kaart17, kaart18=Kaart(2,1,3,3), Kaart(2,1,1,2), Kaart(1,2,1,2)
-    kaart19, kaart20, kaart21=Kaart(3,2,1,1), Kaart(2,3,3,3), Kaart(3,3,1,1)
+    kaart13, kaart14, kaart15=Card(1,1,2,1), Card(0,2,2,3), Card(0,1,1,3)
+    kaart16, kaart17, kaart18=Card(2,1,3,3), Card(2,1,1,2), Card(1,2,1,2)
+    kaart19, kaart20, kaart21=Card(3,2,1,1), Card(2,3,3,3), Card(3,3,1,1)
     
     if kaart13.is_set(kaart14,kaart15)==True:
         print("Unit test: "+str(kaart13)+","+str(kaart14)+","+str(kaart15)+" "+ "Expected: False, return Falue:"+str(kaart13.is_set(kaart14,kaart15)))
