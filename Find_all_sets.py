@@ -77,20 +77,3 @@ def find_allsets(set_of_twelve: list):
             allsets.append(combination)
     return allsets
 
-def find_set(set_of_twelve: list):
-    """
-    This function finds a Set in a set of twelve cards.
-    
-    Input: list of twelve cards
-    Output: If there is a Set, this function returns a list with the indices 
-            of the cards that form a Set.
-            If there isn't any Set in this set of twelve cards, the function
-            returns False.
-    """
-    if find_allsets(set_of_twelve)==[]:
-        return False
-    else:
-        return find_allsets(set_of_twelve)
-    
-        
-        
