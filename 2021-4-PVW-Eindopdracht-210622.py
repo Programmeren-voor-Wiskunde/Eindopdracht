@@ -81,6 +81,7 @@ class Game:
         for i in indices:
             self.set_of_twelve[i]=self.deck[-1]
             del self.deck[-1]
+            
 #Not in Game definition anymore
 
 def possible_combinations(set_of_twelve: list):
