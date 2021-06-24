@@ -72,8 +72,7 @@ class Game:
         
     def update_set_of_twelve(self, set_indices):
         """
-        Removes the cards with the given set_indices from set_of_twelve and replaces them with the cards on top of the remaining deck.
-        Further removes the cards with the given set_indices from the deck and hence removes them from the game.
+        Removes the last three elements of self.deck and replaces indicated cards of self.set_of_twelve with this new three cards.
         
         Input: game, set_indices: list of cards in the set_of_twelve which have to be renewed.
         Output: none
