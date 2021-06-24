@@ -40,15 +40,15 @@ class Card:
 
 #Not in Card definition anymore
 
-class Game(Card):
+class Game:
     """
     Represents a round of the game Set
     
     Attributes: set_of_twelve, deck
-    Methods: init
+    Methods: init, str
     Functions: update_set_of_twelve
     """
-    def __init__(self,deck: list,set_of_twelve: list):
+    def __init__(self):
         """
         This function creates an object representing an round of the game Set.
         Input: -
@@ -68,6 +68,9 @@ class Game(Card):
             set_of_twelve.append(str(self.deck[0]))
             del deck[0]
         self.set_of_twelve=set_of_twelve
+        
+    def __str__(self):
+        return("Cards on the table:\n"+str(self.set_of_twelve[0])+str(self.set_of_twelve[1])+str(self.set_of_twelve[2])+str(self.set_of_twelve[3])+"\n"+str(self.set_of_twelve[4])+str(self.set_of_twelve[5])+str(self.set_of_twelve[6])+str(self.set_of_twelve[7])+"\n"+str(self.set_of_twelve[8])+str(self.set_of_twelve[9])+str(self.set_of_twelve[10])+str(self.set_of_twelve[11])+"\n"+"Aantal kaarten op de stapel:"+str(len(self.deck)))
         
     def update_set_of_twelve(self,indices):
         """
@@ -137,6 +140,9 @@ def find_set(set_of_twelve: list):
         return False
     else:
         return find_allsets(set_of_twelve)
+    
+game=Game()
+print(game)
     
 
 def unit_tests():
