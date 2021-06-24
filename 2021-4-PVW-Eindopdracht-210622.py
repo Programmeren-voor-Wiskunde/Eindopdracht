@@ -54,19 +54,18 @@ class Game:
         Input: -
         Output: game: Game
         """
-        deck = []
+        self.deck = []
         for i in range(3):
             for j in range(3):
                 for k in range(3):
                     for l in range(3):
-                        deck.append(Card(i,j,k,l))
-        random.shuffle(deck)
-        self.deck=deck
+                        self.deck.append(Card(i,j,k,l))
+        random.shuffle(self.deck)
 
         set_of_twelve = []
         for i in range(12):
             set_of_twelve.append(str(self.deck[0]))
-            del deck[0]
+            del self.deck[0]
         self.set_of_twelve=set_of_twelve
         
     def __str__(self):
@@ -173,3 +172,4 @@ def unit_tests():
         print("Unit test: "+str(kaart16)+","+str(kaart17)+","+str(kaart18)+" "+ "Expected: False, return Falue:"+str(kaart16.is_set(kaart17,kaart18)))
     if kaart19.is_set(kaart20,kaart21)==True:
         print("Unit test: "+str(kaart19)+","+str(kaart20)+","+str(kaart21)+" "+ "Expected: False, return Falue:"+str(kaart19.is_set(kaart20,kaart21)))
+unit_tests()
