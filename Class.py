@@ -46,7 +46,7 @@ class Kaart:
         """ 
         Given a card, this method returns the name of the associated image file of the card.
         
-        Input: self = Card object
+        Input: Card object
         Output: name of the image file of the card; string
         """
         
@@ -64,9 +64,9 @@ class Kaart:
         # add attribute shape to file_name
         if self.shape == 0:
             file_name += "diamond"
-        elif self.color == 1:
+        elif self.shape == 1:
             file_name += "oval"
-        elif self.color == 2:
+        elif self.shape == 2:
             file_name += "squiggle"
         
         # add attribute filling to file_name
