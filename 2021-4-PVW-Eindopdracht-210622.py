@@ -108,7 +108,7 @@ def possible_combinations(set_of_twelve: list):
 
 def find_allsets(set_of_twelve: list):
     """
-    This function finds al Sets in ta set of twelve cards.
+    This function finds al Sets in a set of twelve cards.
     Input: list of twelve cards
     Output: If there is at least one Set, this function returns a list of all Sets (list of lists with the indices 
             of the cards that form a Set).
