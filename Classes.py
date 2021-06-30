@@ -132,6 +132,9 @@ class Game:
         
         """
         for i in set_indices:
-            self.set_of_twelve[i]=self.deck[-1]
-            del self.deck[-1]
+            if len(self.deck) != 0:
+                self.set_of_twelve[i] = self.deck[-1]
+                del self.deck[-1]
+            else:
+                self.set_of_twelve[i] = "black"
                 
