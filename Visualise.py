@@ -1,5 +1,4 @@
 #Visualise
-# import the pygame module, so you can use it
 import pygame
 import sys
 import time
@@ -35,6 +34,7 @@ grey = (200,200,200)
 #creates a new game
 game = Game()
 print(game)
+game.language = "Nederlands"
 
 # initialize the pygame module
 pygame.init()
@@ -52,6 +52,9 @@ font = pygame.font.SysFont(None, 30)
 # initialise selected_cards
 selected_cards = []
 
+# initialise score
+score = [0,0]
+
 # creates grid to enable card selection by mouse clicking
 rect_set_of_twelve = []
 for i in range(len(game.set_of_twelve)):
@@ -66,7 +69,7 @@ running = True
 
 
 def visualise_set_of_twelve(set_of_twelve, selected_cards , not_a_set_message, 
-                            overtime_message, score = (0,0), player_name = 'Player1'): 
+                            overtime_message, score = [0,0], player_name = 'Player1'): 
     """
     This function displays the set of twelve cards on the table and the current score.
 
@@ -138,10 +141,10 @@ def visualise_set_of_twelve(set_of_twelve, selected_cards , not_a_set_message,
     if overtime_message:
         if game.language == 'Nederlands':
             error_message = font.render("Computer heeft een Set.", True, red)
-            screen.blit(error_message, (100, 220))
+            screen.blit(error_message, ((window_width//2)-114, 60))
         elif game.language == 'English':
             error_message = font.render("Computer has a Set.", True, red)
-            screen.blit(error_message, (110, 220))
+            screen.blit(error_message, ((window_width//2)-97, 60))
 
 
 
@@ -188,6 +191,7 @@ while running == True:
         overtime_message=True
         t0=time.time()
         print("De computer heeft deze ronde gewonnen.")
+        score[1]+=1
         game.update_set_of_twelve(find_set(game.set_of_twelve))
         game.roundtime = time.time()
         print(game)
@@ -197,6 +201,7 @@ while running == True:
     if len(selected_cards)==3:
         if game.set_of_twelve[selected_cards[0]].is_set(game.set_of_twelve[selected_cards[1]],
                                                 game.set_of_twelve[selected_cards[2]])==True:
+            score[0]+=1
             game.update_set_of_twelve(selected_cards)
             game.roundtime=time.time()
             print(game)
@@ -214,10 +219,11 @@ while running == True:
     
     #start = time.time()
     # update the screen
-    visualise_set_of_twelve(game.set_of_twelve, selected_cards, not_a_set_message, overtime_message)
+    visualise_set_of_twelve(game.set_of_twelve, selected_cards, not_a_set_message, 
+                            overtime_message, score)
     pygame.display.update()
     #print(start-time.time())
         
 pygame.quit()
 sys.exit()      
-               
+                
