@@ -5,13 +5,7 @@ Created on Wed Jun 30 10:44:02 2021
 @author: Jelger
 """
 
-import pygame
-import sys
 import random
-import copy
-import time
-
-
 
 
 
