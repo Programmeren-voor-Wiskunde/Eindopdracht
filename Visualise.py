@@ -15,7 +15,7 @@ possible_combinations = Functions.possible_combinations
 find_allsets = Functions.find_allsets
 find_set = Functions.find_set
 
-import Unittests
+#import Unittests
 
 
 
@@ -34,6 +34,7 @@ grey = (200,200,200)
 #creates a new game
 game = Game()
 print(game)
+game.difficulty = 60
 game.language = "Nederlands"
 
 # initialize the pygame module
@@ -66,6 +67,7 @@ for i in range(len(game.set_of_twelve)):
 pygame.display.set_caption("Set")
 t0=-3
 running = True
+display_result_screen = False
 
 
 def visualise_set_of_twelve(set_of_twelve, selected_cards , not_a_set_message, 
@@ -116,8 +118,10 @@ def visualise_set_of_twelve(set_of_twelve, selected_cards , not_a_set_message,
     
     # load images of the cards in set_of_twelve
     for i in range(len(set_of_twelve)):
-        loaded_images.append(pygame.image.load(set_of_twelve[i].file_name()).convert())
-        
+        if set_of_twelve[i] != Card(4,4,4,4):
+            loaded_images.append(pygame.image.load(set_of_twelve[i].file_name()).convert())
+        else:
+            loaded_images.append(pygame.image.load('zwarte_kaart.png').convert())
     # blit images of set_of_twelve to screen
     for i in range(len(set_of_twelve)):
         screen.blit(loaded_images[i], (card_positions(set_of_twelve)[i][1],
@@ -145,6 +149,66 @@ def visualise_set_of_twelve(set_of_twelve, selected_cards , not_a_set_message,
         elif game.language == 'English':
             error_message = font.render("Computer has a Set.", True, red)
             screen.blit(error_message, ((window_width//2)-97, 60))
+
+
+def result_screen(score, language, player_name = "Player1"):
+    window_width, window_height = pygame.display.get_surface().get_size()
+    
+    # load text to screen
+    if language == "Nederlands":
+        cause_game_stop = font.render("Geen Sets meer mogelijk", True, white)
+    elif language == "English":
+        cause_game_stop = font.render("No more Sets possible", True, white)
+    cause_game_stop_rect = cause_game_stop.get_rect(center = (window_width//2, 20))
+    
+    
+    # load score to screen
+    player_score = score[0]
+    computer_score = score[1]
+    score_text = str(player_name) + "  " + str(player_score) + " - " + str(computer_score) + "  " + "Computer"
+    score_display = font.render(score_text, True, white)
+    score_display_rect = score_display.get_rect(center = (window_width//2, 
+                                                          (window_height//2)+50))
+    
+    
+    # determines who won the game
+    if player_score > computer_score:
+        # load green background to screen
+        screen.fill(green)
+        # load winning message to screen
+        if language == "Nederlands":
+            win = font.render("Gefeliciteerd, je hebt gewonnen!", True, white)
+        elif language == "English":
+            win = font.render("Congratulations, you've won!", True, white)
+        win_rect = win.get_rect(center = (window_width//2, window_height//2))
+        screen.blit(win, win_rect)
+        screen.blit(score_display, score_display_rect)
+        screen.blit(cause_game_stop, cause_game_stop_rect)
+    elif computer_score>player_score:
+        # load red background to screen
+        screen.fill(red)
+        # load losing message to screen
+        if language == "Nederlands":
+            lose = font.render("Helaas, volgende keer beter!", True, white)
+        elif language == "English":
+            lose = font.render("Better luck next time!", True, white)
+        lose_rect = lose.get_rect(center = (window_width//2, window_height//2))
+        screen.blit(lose, lose_rect)
+        screen.blit(score_display, score_display_rect)
+        screen.blit(cause_game_stop, cause_game_stop_rect)
+    else:
+        # load black background to screen
+        screen.fill(black)
+        # load tie message to screen
+        if language == "Nederlands":
+            tie = font.render("Gelijkspel", True, white)
+        elif language == "English":
+            tie = font.render("Tie", True, white)
+        tie_rect = tie.get_rect(center = (window_width//2, window_height//2))
+        screen.blit(tie, tie_rect)
+        screen.blit(score_display, score_display_rect)
+        screen.blit(cause_game_stop, cause_game_stop_rect)
+    
 
 
 
@@ -182,15 +246,25 @@ while running == True:
                 # fixes a weird bug
                 pygame.draw.rect(screen, black, (0,50, window_width, window_height-50))
         
-    #check whether there are any sets:
-    if find_allsets(game.set_of_twelve)==[]:
-        game.update_set_of_twelve(1,2,3)
+    # check whether there are any sets
+    any_sets_left = True
+    while find_allsets(game.set_of_twelve) == [] and any_sets_left:
+        # load result_screen to screen
+        if game.deck == []:
+            display_result_screen = True 
+            any_sets_left = False
+            
+        # replace the first three cards with three cards of the game.deck
+        else:
+            game.update_set_of_twelve([1,2,3])
+    
 
-    #the computer wins if the player didn't found any set after a certain seconds
-    if time.time()-game.roundtime>game.difficulty:
+    # the computer selects a set if the player didn't found any set after a 
+    # certain amount of seconds and the result screen shouldn't be displayed
+    if time.time()-game.roundtime>game.difficulty and any_sets_left:
         overtime_message=True
         t0=time.time()
-        print("De computer heeft deze ronde gewonnen.")
+        print("De computer heeft een Set gevonden.")
         score[1]+=1
         game.update_set_of_twelve(find_set(game.set_of_twelve))
         game.roundtime = time.time()
@@ -219,7 +293,10 @@ while running == True:
     
     #start = time.time()
     # update the screen
-    visualise_set_of_twelve(game.set_of_twelve, selected_cards, not_a_set_message, 
+    if display_result_screen == True:
+        result_screen(score, game.language)
+    else:
+        visualise_set_of_twelve(game.set_of_twelve, selected_cards, not_a_set_message, 
                             overtime_message, score)
     pygame.display.update()
     #print(start-time.time())
