@@ -18,13 +18,6 @@ Game=Classes.Game
 
 
 
-
-
-
-
-
-
-
 def card_positions(set_of_twelve):
     """
     This function converts the index of a card in set_of_twelve to a position 
