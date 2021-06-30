@@ -257,11 +257,11 @@ Now starting the real executioning program.
 
 
 game = Game()
-game.language = "English"
 print(game)
 
 # initialize the pygame module
 pygame.init()
+game.roundtime=time.time()
 
 # Used to manage how fast the screen updates
 clock=pygame.time.Clock()
@@ -269,7 +269,7 @@ clock=pygame.time.Clock()
 pygame.display.set_caption("Set")
     
 # create a surface on screen that has the size of 400 x 600 pixels
-screen = pygame.display.set_mode((400,650), pygame.RESIZABLE)
+screen = pygame.display.set_mode((400,600), pygame.RESIZABLE)
 
 # import font
 font = pygame.font.SysFont(None, 30)
@@ -290,21 +290,23 @@ green = (0, 255, 0)
 blue = (0, 0, 128)
 red = (220, 0, 0)
 black = (0,0,0)
+grey = (200,200,200)
 
-not_a_set_message = False
 t0=-3
 running = True
 
-visualise_set_of_twelve(game.set_of_twelve, selected_cards, not_a_set_message)
+# initialises the screen with not_a_set_message = False and overtime_message=False
+visualise_set_of_twelve(game.set_of_twelve, selected_cards, False, False)
 # display loaded images on screen
 pygame.display.flip()
+
+
     
 # -------- Main Program Loop -----------
 while running == True:
         
     # Limit to 10 frames per second
     clock.tick(10)
-    
     
     for event in pygame.event.get():
         # close game when you click on "Close"-button
@@ -320,6 +322,18 @@ while running == True:
             else:
                 selected_cards.append(i)
         
+    #check whether there are any sets:
+    if find_allsets(game.set_of_twelve)==[]:
+        game.update_set_of_twelve(1,2,3)
+
+    #the computer wins if the player didn't found any set after a certain seconds
+    if time.time()-game.roundtime>game.difficulty:
+        overtime_message=True
+        t0=time.time()
+        print("De computer heeft deze ronde gewonnen.")
+        game.update_set_of_twelve(find_set(game.set_of_twelve)[0],find_set(game.set_of_twelve)[1],find_set(game.set_of_twelve)[2])
+        print(game)
+        selected_cards = []
 
     # check whether the given combination of cards is a set and update if necessary
     if len(selected_cards)==3:
@@ -334,18 +348,19 @@ while running == True:
         selected_cards = []
 
             
-    # after 3 seconds the error message wil vanish
+    # after 3 seconds the error messages wil vanish
     if time.time()-t0>=3:
         not_a_set_message = False
+        overtime_message = False
     
     #start = time.time()
     # update the screen
-    visualise_set_of_twelve(game.set_of_twelve, selected_cards, not_a_set_message)
+    visualise_set_of_twelve(game.set_of_twelve, selected_cards, not_a_set_message, overtime_message)
     pygame.display.update()
     #print(start-time.time())
         
 pygame.quit()
-sys.exit()            
+sys.exit()      
                 
 
 
