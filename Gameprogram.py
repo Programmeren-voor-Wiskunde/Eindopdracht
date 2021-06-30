@@ -167,12 +167,9 @@ def unit_tests():
         print("Unit test: "+str(kaart19)+","+str(kaart20)+","+str(kaart21)+" "+ "Expected: False, return Falue:"+str(kaart19.is_set(kaart20,kaart21)))
 unit_tests()
 
-def inputcontrol():
-    given_set_string=input("Voer de nummers van de kaarten in die een set vormen (b.v.: '1,2,3')")
-    given_set_list=given_set_string.split(",")
-    return eval(given_set_list[0]),eval(given_set_list[1]),eval(given_set_list[2])
 
-def mainprogram():
+
+
     game=Game()
     print(game)
     starttime=time.time()
