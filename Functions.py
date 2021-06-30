@@ -5,10 +5,7 @@ Created on Wed Jun 30 10:43:28 2021
 @author: Jelger
 """
 import pygame
-import sys
-import random
 import copy
-import time
 
 import Classes
 Card=Classes.Card
