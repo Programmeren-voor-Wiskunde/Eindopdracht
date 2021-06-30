@@ -111,13 +111,14 @@ class Game:
     def __str__(self):
         return("Cards on the table:\n"+str(self.set_of_twelve[0])+str(self.set_of_twelve[1])+str(self.set_of_twelve[2])+str(self.set_of_twelve[3])+"\n"+str(self.set_of_twelve[4])+str(self.set_of_twelve[5])+str(self.set_of_twelve[6])+str(self.set_of_twelve[7])+"\n"+str(self.set_of_twelve[8])+str(self.set_of_twelve[9])+str(self.set_of_twelve[10])+str(self.set_of_twelve[11])+"\n"+"Aantal kaarten op de stapel:"+str(len(self.deck)))
         
-    def update_set_of_twelve(self, set_indices):
+        def update_set_of_twelve(self, set_indices):
         """
         Removes the last three elements of self.deck and replaces indicated cards of self.set_of_twelve with these new three cards.
         
         Input: game, set_indices: list of cards in the set_of_twelve which have to be renewed.
-        Output: none
+        Output: None
         Changed attributes: self.deck, self.set_of_twelve
+        
         """
         for i in set_indices:
             self.set_of_twelve[i]=self.deck[-1]
@@ -143,19 +144,23 @@ def card_positions(set_of_twelve):
     set_of_twelve should be mapped to.
 
     """
+    # get window size
+    window_width, window_height = pygame.display.get_surface().get_size()
+    
     # initialise list of positions
     positions = []
+    
     # append pixel positions of cards to positions
     for i in range(len(set_of_twelve)):
         row, column = divmod(i, 4)
         row = 200*row+50
-        column = 100*column
+        column = (window_width//2)-200+100*column
         positions.append([row, column]) 
     return positions
 
 
-def visualise_set_of_twelve(set_of_twelve, selected_cards , not_a_set_message = False, 
-                            score = (0,0), player_name = 'Player'): 
+def visualise_set_of_twelve(set_of_twelve, selected_cards , not_a_set_message, 
+                            overtime_message, score = (0,0), player_name = 'Player1'): 
     """
     This function displays the set of twelve cards on the table and the current score.
 
@@ -175,15 +180,21 @@ def visualise_set_of_twelve(set_of_twelve, selected_cards , not_a_set_message = 
     
     window_width, window_height = pygame.display.get_surface().get_size()
     # make a score board
-    pygame.draw.rect(screen, (200,200,200), (0, 0, window_width, 50))
+    pygame.draw.rect(screen, grey, (0, 0, window_width, 50))
     
+    # load player name and computer to screen
     player_name_display = font.render(player_name, True, black)
     computer_name_display = font.render("Computer", True, black)
     
-    # load images of player name and computer to screen
     screen.blit(computer_name_display, (window_width-115,15))
     screen.blit(player_name_display, (10, 15))
     
+    # load score to screen
+    player_score, computer_score = score
+    score_text = str(player_score) + " - " + str(computer_score)
+    score_display = font.render(score_text, True, black)
+    score_display_rect = score_display.get_rect(center = (window_width//2, 25))
+    screen.blit(score_display, score_display_rect)
     
     
     # initialise list of loaded images
@@ -196,7 +207,7 @@ def visualise_set_of_twelve(set_of_twelve, selected_cards , not_a_set_message = 
     for i in range(len(set_of_twelve)):
         loaded_images.append(pygame.image.load(set_of_twelve[i].file_name()).convert())
         
-    # load images of set_of_twelve to screen
+    # blit images of set_of_twelve to screen
     for i in range(len(set_of_twelve)):
         screen.blit(loaded_images[i], (card_positions(set_of_twelve)[i][1],
                                        card_positions(set_of_twelve)[i][0]))
