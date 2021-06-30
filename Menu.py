@@ -59,6 +59,8 @@ while menu2 == True:
             elif event.key == pygame.K_RETURN:
                 difficulty=menu2_input
                 menu2=False
+                pygame.quit()
+                sys.exit()
             else:
                 menu2_input+=event.unicode
             
@@ -73,11 +75,11 @@ while menu2 == True:
     screen.blit(text_surface2,(input_rect.x+5,input_rect.y + 5))
   
     text_surface3=font.render("Moeilijkheidsgraad: Aantal seconden voor computer een set vindt.",True,(255,255,255))
-    screen.blit(text_surface3,(input_rect.x,input_rect.y + 30))  
+    screen.blit(text_surface3,(input_rect.x,input_rect.y + 70))  
   
-    pygame.draw.rect(screen,color,(input_rect.x,input_rect.y+ 60, 240, 32), 2)
+    pygame.draw.rect(screen,color,(input_rect.x,input_rect.y+ 105, 240, 32), 2)
     text_surface4=font.render(menu2_input,True,(255,255,255))
-    screen.blit(text_surface4,(input_rect.x+5,input_rect.y + 65))
+    screen.blit(text_surface4,(input_rect.x+5,input_rect.y + 110))
     
     pygame.display.update()
     clock.tick(30)
