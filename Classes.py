@@ -114,7 +114,7 @@ class Game:
 
         self.set_of_twelve = []
         for i in range(12):
-            self.set_of_twelve.append(self.deck[-1]) #heb hier str(self.deck) weggehaald
+            self.set_of_twelve.append(self.deck[-1])
             del self.deck[-1]
             
         self.language = 'English'
