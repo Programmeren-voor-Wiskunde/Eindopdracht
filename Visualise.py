@@ -1,10 +1,4 @@
 #Visualise
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Jun 23 09:50:36 2021
-
-@author: lgrle
-"""
 # import the pygame module, so you can use it
 import pygame
 import sys
@@ -154,13 +148,14 @@ def card_positions(set_of_twelve):
     # append pixel positions of cards to positions
     for i in range(len(set_of_twelve)):
         row, column = divmod(i, 4)
-        row = 200*row
+        row = 200*row+50
         column = 100*column
         positions.append([row, column]) 
     return positions
 
 
-def visualise_set_of_twelve(set_of_twelve, selected_cards , not_a_set_message = False, score = (0,0), player_name = 'Player'): 
+def visualise_set_of_twelve(set_of_twelve, selected_cards , not_a_set_message = False, 
+                            score = (0,0), player_name = 'Player'): 
     """
     This function displays the set of twelve cards on the table and the current score.
 
@@ -177,12 +172,19 @@ def visualise_set_of_twelve(set_of_twelve, selected_cards , not_a_set_message = 
     None.
 
     """
-    """
+    
     window_width, window_height = pygame.display.get_surface().get_size()
     # make a score board
-    score_rect = pygame.draw.rect(screen, (100,100,100), 0, 0, window_width, window_height, 3)
+    pygame.draw.rect(screen, (200,200,200), (0, 0, window_width, 50))
+    
     player_name_display = font.render(player_name, True, black)
-    """
+    computer_name_display = font.render("Computer", True, black)
+    
+    # load images of player name and computer to screen
+    screen.blit(computer_name_display, (window_width-115,15))
+    screen.blit(player_name_display, (10, 15))
+    
+    
     
     # initialise list of loaded images
     loaded_images = []
@@ -210,11 +212,8 @@ def visualise_set_of_twelve(set_of_twelve, selected_cards , not_a_set_message = 
             error_message = font.render("Dat is helaas geen Set.", True, red)
         elif game.language == 'English':
             error_message = font.render("That is not a Set.", True, red)
-        screen.blit(error_message, (90, 170))
-    """
-    # display loaded images on screen
-    pygame.display.flip()
-    """
+        screen.blit(error_message, (110, 170))
+
     
 def select_card(set_of_twelve, rect_set_of_twelve):
     """
@@ -247,6 +246,7 @@ Now starting the real executioning program.
 
 
 game = Game()
+game.language = "English"
 print(game)
 
 # initialize the pygame module
@@ -258,7 +258,7 @@ clock=pygame.time.Clock()
 pygame.display.set_caption("Set")
     
 # create a surface on screen that has the size of 400 x 600 pixels
-screen = pygame.display.set_mode((400,600), pygame.RESIZABLE)
+screen = pygame.display.set_mode((400,650), pygame.RESIZABLE)
 
 # import font
 font = pygame.font.SysFont(None, 30)
