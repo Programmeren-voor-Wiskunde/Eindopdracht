@@ -1,4 +1,10 @@
 #Visualise
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jun 23 09:50:36 2021
+
+@author: lgrle
+"""
 # import the pygame module, so you can use it
 import pygame
 import sys
@@ -83,7 +89,7 @@ class Game:
     """
     Represents a round of the game Set
     
-    Attributes: set_of_twelve, deck
+    Attributes: set_of_twelve, deck(, language)
     Methods: init, str
     Functions: update_set_of_twelve
     """
@@ -105,6 +111,8 @@ class Game:
         for i in range(12):
             self.set_of_twelve.append(self.deck[-1]) #heb hier str(self.deck) weggehaald
             del self.deck[-1]
+            
+        self.language = 'English'
         
     def __str__(self):
         return("Cards on the table:\n"+str(self.set_of_twelve[0])+str(self.set_of_twelve[1])+str(self.set_of_twelve[2])+str(self.set_of_twelve[3])+"\n"+str(self.set_of_twelve[4])+str(self.set_of_twelve[5])+str(self.set_of_twelve[6])+str(self.set_of_twelve[7])+"\n"+str(self.set_of_twelve[8])+str(self.set_of_twelve[9])+str(self.set_of_twelve[10])+str(self.set_of_twelve[11])+"\n"+"Aantal kaarten op de stapel:"+str(len(self.deck)))
@@ -152,20 +160,30 @@ def card_positions(set_of_twelve):
     return positions
 
 
-def visualise_set_of_twelve(set_of_twelve, selected_cards , not_a_set): 
+def visualise_set_of_twelve(set_of_twelve, selected_cards , not_a_set_message = False, score = (0,0), player_name = 'Player'): 
     """
-    This function displays the set of twelve cards on the table.
+    This function displays the set of twelve cards on the table and the current score.
 
     Parameters
     ----------
     set_of_twelve : List containing the twelve cards that are visible on the game table.
-    not_a_set : Boolean value.
+    selected_cards : List containing up to three cards that are selected in the game. 
+    not_a_set_message : Boolean value.
+    score : tuple with score of player and computer.
+    player_name : name of the player of the game
 
     Returns
     -------
-    None, but its effect is a window with twelve game cards.
+    None.
 
     """
+    """
+    window_width, window_height = pygame.display.get_surface().get_size()
+    # make a score board
+    score_rect = pygame.draw.rect(screen, (100,100,100), 0, 0, window_width, window_height, 3)
+    player_name_display = font.render(player_name, True, black)
+    """
+    
     # initialise list of loaded images
     loaded_images = []
     
@@ -187,13 +205,16 @@ def visualise_set_of_twelve(set_of_twelve, selected_cards , not_a_set):
                                        card_positions(game.set_of_twelve)[i][0]))
         
     # displays error message if necessary
-    if not_a_set:
-        error_message = font.render("Dat is helaas geen Set.", True, red)
+    if not_a_set_message:
+        if game.language == 'Nederlands':
+            error_message = font.render("Dat is helaas geen Set.", True, red)
+        elif game.language == 'English':
+            error_message = font.render("That is not a Set.", True, red)
         screen.blit(error_message, (90, 170))
-    
+    """
     # display loaded images on screen
     pygame.display.flip()
-    
+    """
     
 def select_card(set_of_twelve, rect_set_of_twelve):
     """
@@ -259,55 +280,58 @@ blue = (0, 0, 128)
 red = (220, 0, 0)
 black = (0,0,0)
 
-not_a_set = False
+not_a_set_message = False
 t0=-3
 running = True
 
+visualise_set_of_twelve(game.set_of_twelve, selected_cards, not_a_set_message)
+# display loaded images on screen
+pygame.display.flip()
+    
 # -------- Main Program Loop -----------
 while running == True:
-    visualise_set_of_twelve(game.set_of_twelve, selected_cards, not_a_set)
-    
+        
     # Limit to 10 frames per second
     clock.tick(10)
     
     
     for event in pygame.event.get():
-        # closes game when you click on "Close"-button
+        # close game when you click on "Close"-button
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.MOUSEBUTTONUP:
-            # if you click on the same card twice, then it will unselect.
+            # if you click on the same card twice, unselect that card.
             i = select_card(game.set_of_twelve, rect_set_of_twelve)
             if i in selected_cards:
                 selected_cards.remove(i)
                 
-            # if you click on a card, it will be stored in the selected cards.
+            # if you click on a card, store it in selected_cards.
             else:
                 selected_cards.append(i)
-            print(i)
         
 
-    # checks whether the given combination of cards is a set and updates if necessary
+    # check whether the given combination of cards is a set and update if necessary
     if len(selected_cards)==3:
         if game.set_of_twelve[selected_cards[0]].is_set(game.set_of_twelve[selected_cards[1]],
                                                 game.set_of_twelve[selected_cards[2]])==True:
             game.update_set_of_twelve(selected_cards)
             print(game)
         else:
-            not_a_set = True
+            not_a_set_message = True
             t0 = time.time()
             print("Dat is helaas geen Set.")
         selected_cards = []
-        
-    # removes outlines from cards when there aren't anymore selected cards
-    if len(selected_cards) == 0:
-        for i in range(12):
-            pygame.draw.rect(screen, black, (card_positions(game.set_of_twelve)[i][1], 
-                        card_positions(game.set_of_twelve)[i][0], 100, 200), 3)
+
             
     # after 3 seconds the error message wil vanish
     if time.time()-t0>=3:
-        not_a_set = False
+        not_a_set_message = False
+    
+    #start = time.time()
+    # update the screen
+    visualise_set_of_twelve(game.set_of_twelve, selected_cards, not_a_set_message)
+    pygame.display.update()
+    #print(start-time.time())
         
 pygame.quit()
 sys.exit()            
