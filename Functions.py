@@ -113,7 +113,7 @@ def find_allsets(set_of_twelve: list):
         card1 = set_of_twelve[combination[0]]
         card2 = set_of_twelve[combination[1]]
         card3 = set_of_twelve[combination[2]]
-        if card1.is_set(card2, card3):
+        if card1.is_set(card2, card3) == True:
             allsets.append(combination)
     return allsets
 
