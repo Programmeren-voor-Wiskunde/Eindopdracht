@@ -2,8 +2,6 @@
 # import the pygame module, so you can use it
 import pygame
 import sys
-import random
-import copy
 import time
 
 import Classes
@@ -77,7 +75,8 @@ def visualise_set_of_twelve(set_of_twelve, selected_cards , not_a_set_message,
     set_of_twelve : List containing the twelve cards that are visible on the game table.
     selected_cards : List containing up to three cards that are selected in the game. 
     not_a_set_message : Boolean value.
-    score : tuple with score of player and computer.
+    overtime_message : Boolean value
+    score : list with score of player and computer.
     player_name : name of the player of the game
 
     Returns
@@ -98,7 +97,8 @@ def visualise_set_of_twelve(set_of_twelve, selected_cards , not_a_set_message,
     screen.blit(player_name_display, (10, 15))
     
     # load score to screen
-    player_score, computer_score = score
+    player_score = score[0]
+    computer_score = score[1]
     score_text = str(player_score) + " - " + str(computer_score)
     score_display = font.render(score_text, True, black)
     score_display_rect = score_display.get_rect(center = (window_width//2, 25))
@@ -129,17 +129,19 @@ def visualise_set_of_twelve(set_of_twelve, selected_cards , not_a_set_message,
     if not_a_set_message:
         if game.language == 'Nederlands':
             error_message = font.render("Dat is helaas geen Set.", True, red)
+            screen.blit(error_message, (90, 220))
         elif game.language == 'English':
             error_message = font.render("That is not a Set.", True, red)
-        screen.blit(error_message, (110, 170))
+            screen.blit(error_message, (110, 220))
         
         # displays error message if necessary
     if overtime_message:
         if game.language == 'Nederlands':
-            error_message = font.render("Uw tijd is verstreken, de computer wint deze ronde.", True, red)
+            error_message = font.render("Computer heeft een Set.", True, red)
+            screen.blit(error_message, (100, 220))
         elif game.language == 'English':
-            error_message = font.render("Your time has passed, computer wins this round.", True, red)
-        screen.blit(error_message, (110, 170))
+            error_message = font.render("Computer has a Set.", True, red)
+            screen.blit(error_message, (110, 220))
 
 
 
@@ -149,13 +151,15 @@ visualise_set_of_twelve(game.set_of_twelve, selected_cards, False, False)
 pygame.display.flip()
 
 
-    
 # -------- Main Program Loop -----------
 
 while running == True:
         
     # Limit to 10 frames per second
     clock.tick(10)
+    
+    # check size of screen
+    window_width, window_height = pygame.display.get_surface().get_size()
     
     for event in pygame.event.get():
         # close game when you click on "Close"-button
@@ -166,10 +170,14 @@ while running == True:
             i = select_card(game.set_of_twelve, rect_set_of_twelve)
             if i in selected_cards:
                 selected_cards.remove(i)
+                # fixes a weird bug
+                pygame.draw.rect(screen, black, (0,50, window_width, window_height-50))
                 
             # if you click on a card, store it in selected_cards.
             else:
                 selected_cards.append(i)
+                # fixes a weird bug
+                pygame.draw.rect(screen, black, (0,50, window_width, window_height-50))
         
     #check whether there are any sets:
     if find_allsets(game.set_of_twelve)==[]:
@@ -212,14 +220,4 @@ while running == True:
         
 pygame.quit()
 sys.exit()      
-                
-
-
-    
-
-
-"""
-# load and set the logo
-greendiamondempty1 = pygame.image.load("greendiamondempty1.gif")
-pygame.display.set_icon(greendiamondempty1)
-"""
+               
