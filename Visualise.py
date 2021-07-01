@@ -33,10 +33,10 @@ game = Game()
 print(game)
 
 # typ here how many seconds it takes for the Computer to find a Set
-game.difficulty = 1
+game.difficulty = int(input("Hoeveel seconden wilt u per ronde?"))
 
 # typ your language here. You can choose "English" or "Nederlands".  
-game.language = "Nederlands"
+game.language = input("Taalvoorkeur: 'Nederlands' of 'Engels'")
 
 # initialize the pygame module
 pygame.init()
