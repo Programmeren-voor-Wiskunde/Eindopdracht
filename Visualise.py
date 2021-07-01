@@ -24,6 +24,7 @@ find_set = Functions.find_set
 # define the RGB value for certain colors
 white = (255, 255, 255)
 green = (0, 255, 0)
+dark_green = (0, 80, 0)
 blue = (0, 0, 128)
 red = (220, 0, 0)
 black = (0,0,0)
@@ -92,8 +93,11 @@ def visualise_set_of_twelve(set_of_twelve, selected_cards , not_a_set_message,
     """
     
     window_width, window_height = pygame.display.get_surface().get_size()
-    # make a score board
+    # create a score board
     pygame.draw.rect(screen, grey, (0, 0, window_width, 50))
+    
+    # create a dark green background
+    pygame.draw.rect(screen, dark_green, (0,50, window_width, window_height-50))
     
     # load player name and computer to screen
     player_name_display = font.render(player_name, True, black)
