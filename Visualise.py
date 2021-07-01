@@ -34,7 +34,7 @@ grey = (200,200,200)
 #creates a new game
 game = Game()
 print(game)
-game.difficulty = 60
+game.difficulty = 1
 game.language = "Nederlands"
 
 # initialize the pygame module
@@ -165,7 +165,8 @@ def result_screen(score, language, player_name = "Player1"):
     # load score to screen
     player_score = score[0]
     computer_score = score[1]
-    score_text = str(player_name) + "  " + str(player_score) + " - " + str(computer_score) + "  " + "Computer"
+    score_text = str(player_name) + "  " + str(player_score
+                            ) + " - " + str(computer_score) + "  " + "Computer"
     score_display = font.render(score_text, True, white)
     score_display_rect = score_display.get_rect(center = (window_width//2, 
                                                           (window_height//2)+50))
