@@ -31,7 +31,7 @@ grey = (200,200,200)
 #creates a new game
 game = Game()
 print(game)
-game.difficulty = 1
+game.difficulty = 60
 game.language = "Nederlands"
 
 # initialize the pygame module
@@ -254,7 +254,7 @@ while running == True:
             # checks whether you click on a card
             i = select_card(game.set_of_twelve, rect_set_of_twelve)
             # do nothing if you click on something that is not a card
-            if i == False:
+            if type(i) == bool and i == False: #to overrule the situation i=0=True
                 continue
             # if you click on the same card twice, unselect that card.
             elif i in selected_cards:
