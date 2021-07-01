@@ -293,7 +293,7 @@ while running == True:
         overtime_message=True
         t0=time.time()
         print("De computer heeft een Set gevonden.")
-        score[1]+=1
+        score[1]+=1 
         game.update_set_of_twelve(find_set(game.set_of_twelve))
         game.roundtime = time.time()
         print(game)
@@ -327,7 +327,6 @@ while running == True:
         visualise_set_of_twelve(game.set_of_twelve, selected_cards, not_a_set_message, 
                             overtime_message, score)
     pygame.display.update()
-    #print(start-time.time())
         
 pygame.quit()
 sys.exit()      
