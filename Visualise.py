@@ -31,7 +31,11 @@ grey = (200,200,200)
 #creates a new game
 game = Game()
 print(game)
-game.difficulty = 60
+
+# typ here how many seconds it takes for the Computer to find a Set
+game.difficulty = 1
+
+# typ your language here. You can choose "English" or "Nederlands".  
 game.language = "Nederlands"
 
 # initialize the pygame module
