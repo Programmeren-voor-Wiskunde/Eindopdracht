@@ -264,11 +264,11 @@ while running == True:
             else:
                 selected_cards.append(i)
     
-        # creates grid to enable card selection by mouse clicking
-        rect_set_of_twelve = []
-        for i in range(len(game.set_of_twelve)):
-            rect_set_of_twelve.append(pygame.Rect(card_positions(game.set_of_twelve)[i][1], 
-            card_positions(game.set_of_twelve)[i][0], 100, 200))
+    # creates grid to enable card selection by mouse clicking
+    rect_set_of_twelve = []
+    for i in range(len(game.set_of_twelve)):
+        rect_set_of_twelve.append(pygame.Rect(card_positions(game.set_of_twelve)[i][1], 
+        card_positions(game.set_of_twelve)[i][0], 100, 200))
     
     # check whether there are any sets
     any_sets_left = True
