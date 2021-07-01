@@ -62,7 +62,7 @@ def select_card(set_of_twelve, rect_set_of_twelve):
 
     Returns
     -------
-    index of mouse-clicked card
+    index of mouse-clicked card or Boolean value
 
     """
     # get position of mouse
@@ -72,6 +72,7 @@ def select_card(set_of_twelve, rect_set_of_twelve):
     for i in range(len(set_of_twelve)):
         if rect_set_of_twelve[i].collidepoint(mouse_position):
             return i
+    return False
 
 
 
