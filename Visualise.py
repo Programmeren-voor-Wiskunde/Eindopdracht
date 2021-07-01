@@ -255,19 +255,25 @@ while running == True:
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.MOUSEBUTTONUP:
-            # if you click on the same card twice, unselect that card.
+            # checks whether you click on a card
             i = select_card(game.set_of_twelve, rect_set_of_twelve)
-            if i in selected_cards:
+            # do nothing if you click on something that is not a card
+            if i == False:
+                continue
+            # if you click on the same card twice, unselect that card.
+            elif i in selected_cards:
                 selected_cards.remove(i)
-                # fixes a weird bug
-                pygame.draw.rect(screen, black, (0,50, window_width, window_height-50))
                 
             # if you click on a card, store it in selected_cards.
             else:
                 selected_cards.append(i)
-                # fixes a weird bug
-                pygame.draw.rect(screen, black, (0,50, window_width, window_height-50))
-        
+    
+        # creates grid to enable card selection by mouse clicking
+        rect_set_of_twelve = []
+        for i in range(len(game.set_of_twelve)):
+            rect_set_of_twelve.append(pygame.Rect(card_positions(game.set_of_twelve)[i][1], 
+            card_positions(game.set_of_twelve)[i][0], 100, 200))
+    
     # check whether there are any sets
     any_sets_left = True
     while find_allsets(game.set_of_twelve) == [] and any_sets_left:
