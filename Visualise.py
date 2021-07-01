@@ -36,6 +36,8 @@ game.language = "Nederlands"
 
 # initialize the pygame module
 pygame.init()
+
+# used to count how much seconds have passed since a Set was found.
 game.roundtime=time.time()
 
 # Used to manage how fast the screen updates
@@ -44,7 +46,7 @@ clock=pygame.time.Clock()
 # create a surface on screen that has the size of 400 x 650 pixels
 screen = pygame.display.set_mode((400,650), pygame.RESIZABLE)
 
-# import font
+# import font, used to display text in game 
 font = pygame.font.SysFont(None, 30)
 
 # initialise selected_cards
