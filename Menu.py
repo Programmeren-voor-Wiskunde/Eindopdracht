@@ -59,8 +59,6 @@ while menu2 == True:
             elif event.key == pygame.K_RETURN:
                 difficulty=menu2_input
                 menu2=False
-                pygame.quit()
-                sys.exit()
             else:
                 menu2_input+=event.unicode
             
@@ -83,4 +81,6 @@ while menu2 == True:
     
     pygame.display.update()
     clock.tick(30)
+    
+#screen.fill((0,0,0)) 
     
