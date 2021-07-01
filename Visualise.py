@@ -15,10 +15,6 @@ possible_combinations = Functions.possible_combinations
 find_allsets = Functions.find_allsets
 find_set = Functions.find_set
 
-#import Unittests
-
-
-
 
 
 # define the RGB value for certain colors
@@ -69,6 +65,8 @@ pygame.display.set_caption("Set")
 t0=-3
 running = True
 display_result_screen = False
+not_a_set_message=False
+overtime_message=False
 
 
 def visualise_set_of_twelve(set_of_twelve, selected_cards , not_a_set_message, 
@@ -239,7 +237,6 @@ def result_screen(score, language, player_name = "Player1"):
 visualise_set_of_twelve(game.set_of_twelve, selected_cards, False, False)
 # display loaded images on screen
 pygame.display.flip()
-
 
 # -------- Main Program Loop -----------
 
