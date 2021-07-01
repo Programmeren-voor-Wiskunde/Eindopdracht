@@ -39,9 +39,9 @@ def card_positions(set_of_twelve):
     # append pixel positions of cards to positions
     for i in range(len(set_of_twelve)):
         row, column = divmod(i, 4)
-        row = 200*row+50
-        column = (window_width//2)-200+100*column
-        positions.append([row, column]) 
+        y = 200*row+50
+        x = (window_width//2)-200+100*column
+        positions.append([y, x]) 
     return positions
 
 
