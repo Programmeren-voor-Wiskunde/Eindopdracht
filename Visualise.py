@@ -205,8 +205,6 @@ def result_screen(score, language, player_name = "Player1"):
             win = font.render("Congratulations, you've won!", True, white)
         win_rect = win.get_rect(center = (window_width//2, window_height//2))
         screen.blit(win, win_rect)
-        screen.blit(score_display, score_display_rect)
-        screen.blit(cause_game_stop, cause_game_stop_rect)
     elif computer_score>player_score:
         # load red background to screen
         screen.fill(red)
@@ -217,8 +215,6 @@ def result_screen(score, language, player_name = "Player1"):
             lose = font.render("Better luck next time!", True, white)
         lose_rect = lose.get_rect(center = (window_width//2, window_height//2))
         screen.blit(lose, lose_rect)
-        screen.blit(score_display, score_display_rect)
-        screen.blit(cause_game_stop, cause_game_stop_rect)
     else:
         # load black background to screen
         screen.fill(black)
@@ -229,9 +225,9 @@ def result_screen(score, language, player_name = "Player1"):
             tie = font.render("Tie", True, white)
         tie_rect = tie.get_rect(center = (window_width//2, window_height//2))
         screen.blit(tie, tie_rect)
-        screen.blit(score_display, score_display_rect)
-        screen.blit(cause_game_stop, cause_game_stop_rect)
-    
+
+    screen.blit(score_display, score_display_rect)
+    screen.blit(cause_game_stop, cause_game_stop_rect)
 
 
 
