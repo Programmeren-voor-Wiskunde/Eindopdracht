@@ -207,7 +207,7 @@ class Game:
         """
         
         for i in set_indices:
-            if len(self.deck) == 0: #in the end cards are replaced by black cards, which have the function of empty spaces.
+            if self.deck == []: #in the end cards are replaced by black cards, which have the function of empty spaces.
                 self.set_of_twelve[i] = Card(4,4,4,4)  
             else:
                 self.set_of_twelve[i] = self.deck[-1]
