@@ -12,18 +12,25 @@ import random
 class Card:
     """
     Represents a cart of the game Set
+
+    Attributes
+    ----------
+    color, number, filling, shape
     
-    Attributes: color, number, filling, shape.
-    Methods: init, str, ne (!=), eq (==)
-    Functions: is_set, file_name
+    Methods
+    -------
+    init, str, ne(!=), eq(==)
     
+    Functions
+    ---------
+    is_set, file_name
     """
     
-    def __init__(self,color=0,number=0,filling=0,shape=0):
-        self.color=color
-        self.number=number
-        self.filling=filling
-        self.shape=shape
+    def __init__(self, color = 0, number = 0, filling = 0, shape = 0): 
+        self.color = color
+        self.number = number
+        self.filling = filling
+        self.shape = shape
         
     def __str__(self):
         return("("+str(self.color)+","+str(self.number)+","+str(self.filling)+","+str(self.shape)+")")
@@ -42,10 +49,28 @@ class Card:
         else:
             return False
         
-    def is_set(self,other1,other2):
-        if self == Card(4,4,4,4) or other1 == Card(4,4,4,4) or other2 == Card(4,4,4,4):
-            return False
+    def is_set(self, other1, other2):
+        """
+        Returns wether three given cards are a set or not
+
+        Parameters
+        ----------
+        self : TYPE, Card
+        other1 :
+            DESCRIPTION. Should be of TYPE Card.
+        other2 :
+            DESCRIPTION. Should be of TYPE Card.
+
+        Returns
+        -------
+        TYPE: Boolean
+            DESCRIPTION. Returns True if cards form a set, returns False otherwise.
+        """
+
+        if self == Card(4,4,4,4) or other1 == Card(4,4,4,4) or other2 == Card(4,4,4,4): #black cards used in the end of the game, have the function of "empty spaces"
+            return False 
         else:    
+            #in the dictionary, a key (property of the SET cards) gets the value True if all three SET cards have the same value, or all three cards have different values for this property
             matchings={"color": False,"number": False, "filling": False, "shape": False}
             matchings["color"]=(self.color==other1.color and other1.color==other2.color) or (self.color!=other1.color and other1.color!=other2.color and self.color!=other2.color)
             matchings["number"]=(self.number==other1.number and other1.number==other2.number) or (self.number!=other1.number and other1.number!=other2.number and self.number!=other2.number)
@@ -57,12 +82,18 @@ class Card:
             return True
 
     def file_name(self):
-        """ 
+        """
         Given a card, this method returns the name of the associated image file of the card.
         
-        Input: Card object
-        Output: name of the image file of the card; string
+        Parameters
+        ----------
+        self : TYPE, Card
+        
+        Returns
+        -------
+        file_name : TYPE, str
         """
+  
         
         # initialise file_name
         file_name = ""
@@ -107,16 +138,36 @@ class Game:
     """
     Represents a round of the game Set
     
-    Attributes: set_of_twelve, deck, difficulty, language
-    Methods: init, str
-    Functions: update_set_of_twelve
+    Attributes
+    ----------
+    set_of_twelve, deck, difficulty, language
+    
+    Methods
+    -------
+    init, str
+    
+    Functions
+    ---------
+    update_set_of_twelve
     """
+    
     def __init__(self, difficulty = 1, language = 'English'):
         """
-        This function creates an object representing an round of the game Set.
-        Input: -
-        Output: game: Game
+        Parameters
+        ----------
+        self : TYPE, Game
+        
+        difficulty : TYPE, optional
+            DESCRIPTION. Should be of TYPE int. The default is 1.
+        language : TYPE, optional
+            DESCRIPTION. Should be of TYPE str. The default is 'English'.
+
+        Returns
+        -------
+        None.
+
         """
+
         self.difficulty = difficulty
         self.deck = []
         for i in range(3):
@@ -140,15 +191,24 @@ class Game:
         """
         Removes the last three elements of self.deck and replaces indicated cards of self.set_of_twelve with these new three cards.
         
-        Input: game, set_indices: list of cards in the set_of_twelve which have to be renewed.
-        Output: None
-        Changed attributes: self.deck, self.set_of_twelve
+        Parameters
+        ----------
+        self : TYPE, Game
+        set_indices :
+            DESCRIPTION. Should be of TYPE list, with elements of TYPE int. This are the indices of the cards to be replaced.
+
+        Returns
+        -------
+        None.
         
+        Changed attributes
+        ------------------
+        deck, set_of_twelve
         """
+        
         for i in set_indices:
-            if len(self.deck) == 0:
-                self.set_of_twelve[i] = Card(4,4,4,4)
+            if len(self.deck) == 0: #in the end cards are replaced by black cards, which have the function of empty spaces.
+                self.set_of_twelve[i] = Card(4,4,4,4)  
             else:
                 self.set_of_twelve[i] = self.deck[-1]
                 del self.deck[-1]
-                
