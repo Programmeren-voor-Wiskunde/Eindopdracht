@@ -284,7 +284,7 @@ while running == True:
     
 
     # the computer selects a set if the player didn't found any set after a 
-    # certain amount of seconds and the result screen shouldn't be displayed
+    # certain amount of seconds and if the result screen shouldn't be displayed
     if time.time()-game.roundtime>game.difficulty and any_sets_left:
         overtime_message=True
         t0=time.time()
