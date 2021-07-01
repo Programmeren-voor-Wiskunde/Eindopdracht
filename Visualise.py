@@ -67,8 +67,8 @@ pygame.display.set_caption("Set")
 t0=-3
 running = True
 display_result_screen = False
-not_a_set_message=False
-overtime_message=False
+not_a_set_message = False
+overtime_message = False
 
 
 def visualise_set_of_twelve(set_of_twelve, selected_cards , not_a_set_message, 
@@ -141,10 +141,10 @@ def visualise_set_of_twelve(set_of_twelve, selected_cards , not_a_set_message,
     if not_a_set_message:
         if game.language == 'Nederlands':
             error_message = font.render("Dat is helaas geen Set.", True, red)
-            screen.blit(error_message, (90, 220))
+            screen.blit(error_message, ((window_width//2)-110, 220))
         elif game.language == 'English':
             error_message = font.render("That is not a Set.", True, red)
-            screen.blit(error_message, (110, 220))
+            screen.blit(error_message, ((window_width//2)-90, 220))
         
         # displays error message if necessary
     if overtime_message:
