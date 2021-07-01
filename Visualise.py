@@ -73,7 +73,8 @@ display_result_screen = False
 def visualise_set_of_twelve(set_of_twelve, selected_cards , not_a_set_message, 
                             overtime_message, score = [0,0], player_name = 'Player1'): 
     """
-    This function displays the set of twelve cards on the table and the current score.
+    This function loads the set of twelve cards on the table and the current score
+    to the screen.
 
     Parameters
     ----------
@@ -152,6 +153,23 @@ def visualise_set_of_twelve(set_of_twelve, selected_cards , not_a_set_message,
 
 
 def result_screen(score, language, player_name = "Player1"):
+    """
+    This function
+
+    Parameters
+    ----------
+    score : TYPE
+        DESCRIPTION.
+    language : TYPE
+        DESCRIPTION.
+    player_name : TYPE, optional
+        DESCRIPTION. The default is "Player1".
+
+    Returns
+    -------
+    None.
+
+    """
     window_width, window_height = pygame.display.get_surface().get_size()
     
     # load text to screen
