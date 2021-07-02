@@ -172,7 +172,8 @@ def find_set(set_of_twelve: list):
 
     """
     # determines whether there is a set
-    if find_allsets(set_of_twelve)==[]:
+    allsets=find_allsets(set_of_twelve)
+    if allsets==[]:
         return False
     else:
-        return find_allsets(set_of_twelve)[0]
+        return allsets[0]
