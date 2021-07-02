@@ -36,7 +36,7 @@ print(game)
 player_name = input("Onder welke naam wilt u spelen? : ")
 
 # asks the player how many seconds it should take for the Computer to find a Set
-game.difficulty = int(input("Hoeveel seconden wilt u per ronde? : "))
+game.difficulty = float(input("Hoeveel seconden wilt u per ronde? : "))
 
 # asks for language. You can choose "English" or "Nederlands".  
 game.language = input("Taalvoorkeur: 'Nederlands' of 'English'? : ")
@@ -72,7 +72,6 @@ for i in range(len(game.set_of_twelve)):
 #other initalizations
 pygame.display.set_caption("Set")
 t0=-3
-running = True
 display_result_screen = False
 not_a_set_message = False
 overtime_message = False
@@ -153,7 +152,7 @@ def visualise_set_of_twelve(set_of_twelve, selected_cards , not_a_set_message,
             error_message = font.render("That is not a Set.", True, red)
             screen.blit(error_message, ((window_width//2)-90, 220))
         
-        # displays error message if necessary
+    # displays error message if necessary
     if overtime_message:
         if game.language == 'Nederlands':
             error_message = font.render("Computer heeft een Set.", True, red)
@@ -232,20 +231,18 @@ def result_screen(score, language, player_name = "Player1"):
             tie = font.render("Tie", True, white)
         tie_rect = tie.get_rect(center = (window_width//2, window_height//2))
         screen.blit(tie, tie_rect)
-
+        
     screen.blit(score_display, score_display_rect)
     screen.blit(cause_game_stop, cause_game_stop_rect)
 
-
-
 # initialises the screen with not_a_set_message = False and overtime_message=False
-visualise_set_of_twelve(game.set_of_twelve, selected_cards, False, False)
+visualise_set_of_twelve(game.set_of_twelve, selected_cards, False, False, [0,0], player_name)
 # display loaded images on screen
 pygame.display.flip()
 
 # -------- Main Program Loop -----------
 
-while running == True:
+while True:
         
     # Limit to 10 frames per second
     clock.tick(10)
@@ -256,7 +253,8 @@ while running == True:
     for event in pygame.event.get():
         # close game when you click on "Close"-button
         if event.type == pygame.QUIT:
-            running = False
+            pygame.quit()
+            sys.exit()
         elif event.type == pygame.MOUSEBUTTONUP:
             # checks whether you click on a card
             i = select_card(game.set_of_twelve, rect_set_of_twelve)
@@ -322,15 +320,13 @@ while running == True:
         not_a_set_message = False
         overtime_message = False
     
-    #start = time.time()
+
     # update the screen
     if display_result_screen == True:
-        result_screen(score, game.language)
+        result_screen(score, game.language, player_name)
     else:
         visualise_set_of_twelve(game.set_of_twelve, selected_cards, not_a_set_message, 
-                            overtime_message, score)
+                            overtime_message, score, player_name)
     pygame.display.update()
-        
-pygame.quit()
-sys.exit()      
+              
                 
