@@ -104,10 +104,9 @@ def possible_combinations(set_of_twelve: list):
             combination.append(j)
             for k in range(j+1,len(set_of_twelve)):
                 combination.append(k)
-                if combination not in possibilities and len(combination)==3:
-                    possibilities.append(copy.copy(combination))
-                    # prepare for a new combination
-                    combination.pop()
+                possibilities.append(copy.copy(combination))
+                # prepare for a new combination
+                combination.pop()
             # prepare for a new combination
             combination.pop()
     return possibilities
